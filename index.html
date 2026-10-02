@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday! 🎉</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fcf6f5; text-align: center; }
+
+/* Password Overlay Screen */
+#password-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ffffff; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; }
+.lock-box { padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); background: white; max-width: 320px; width: 90%; }
+input[type="password"] { width: 100%; padding: 12px; margin: 15px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 16px; text-align: center; }
+.unlock-btn { width: 100%; padding: 12px; background-color: #ff6b6b; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold; }
+.error-msg { color: #e74c3c; font-size: 14px; margin-top: 10px; display: none; }
+
+/* Main Website Content (Hidden initially) */
+#main-content { display: none; padding: 40px 20px; }
+.gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin: 30px 0; }
+.gallery img { width: 280px; height: 280px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+.quiz-btn { display: inline-block; padding: 15px 35px; background-color: #4ecdc4; color: white; text-decoration: none; font-size: 18px; font-weight: bold; border-radius: 30px; box-shadow: 0 4px 15px rgba(78,205,196,0.4); transition: 0.2s; margin-top: 20px; }
+.quiz-btn:hover { transform: scale(1.05); background-color: #3dbcb3; }
+</style>
+</head>
+<body>
+
+<!-- PASSWORD CONTROL INTERFACE -->
+
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Birthday Photo Booth - Happy 100th!</title>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 50%, #ffd6a5 100%);
+	min-height: 100vh;
+	font-family: 'Segoe UI', 'Poppins', cursive, 'Comic Neue', sans-serif;
+	padding: 40px 20px;
+	position: relative;
+	overflow-x: hidden;
+}
+
+/* floating balloons animation */
+.floating-balloon {
+	position: fixed;
+	bottom: -100px;
+	font-size: 40px;
+	animation: floatUp 8s ease-in infinite;
+	z-index: 0;
+	pointer-events: none;
+}
+
+@keyframes floatUp {
+	0% { bottom: -100px; opacity: 1; transform: rotate(0deg); }
+	70% { opacity: 1; }
+	100% { bottom: 110%; opacity: 0; transform: rotate(15deg); }
+}
+
+/* ----- PHOTO MODAL WITH images.png ----- */
+.photo-modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: radial-gradient(circle, rgba(0,0,0,0.92), #1a0c00);
+	z-index: 10000;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	backdrop-filter: blur(12px);
+	animation: flashPop 0.2s ease-out;
+	cursor: pointer;
+	font-family: monospace;
+}
+
+@keyframes flashPop {
+	0% { opacity: 0; transform: scale(0.98); background: white; }
+	100% { opacity: 1; transform: scale(1); }
+}
+
+.photo-frame {
+	background: #fff9f0;
+	border-radius: 55px;
+	padding: 25px 30px 35px;
+	box-shadow: 0 30px 45px rgba(0,0,0,0.5), 0 0 0 12px #ffdd99, 0 0 0 18px #ffb347;
+	text-align: center;
+	max-width: 90vw;
+	max-height: 85vh;
+	animation: bounceGentle 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
+	transform-origin: center;
+}
+
+@keyframes bounceGentle {
+	0% { transform: scale(0.85) translateY(40px); opacity: 0; }
+	80% { transform: scale(1.02) translateY(-5px); }
+	100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.photo-frame img {
+	max-width: 100%;
+	max-height: 55vh;
+	border-radius: 38px;
+	box-shadow: 0 12px 28px rgba(0,0,0,0.3);
+	border: 4px solid #ffe2b5;
+	object-fit: contain;
+	background: #f2e5d2;
+}
+
+.photo-caption {
+	margin-top: 20px;
+	font-size: 1.7rem;
+	font-weight: bold;
+	background: linear-gradient(135deg, #ff9966, #ff5e62);
+	background-clip: text;
+	-webkit-background-clip: text;
+	color: transparent;
+	letter-spacing: 1px;
+}
+
+.photo-sub {
+	font-size: 1rem;
+	color: #aa7a4c;
+	background: #fef2e0;
+	display: inline-block;
+	padding: 5px 20px;
+	border-radius: 60px;
+	margin-top: 12px;
+}
+
+.close-hint {
+	margin-top: 20px;
+	font-size: 0.9rem;
+	color: #ffb882;
+	background: rgba(0,0,0,0.5);
+	padding: 6px 14px;
+	border-radius: 40px;
+	display: inline-block;
+}
+
+/* regular styling */
+.birthday-wrapper {
+	max-width: 100%;
+	margin: 0 auto;
+	background: rgba(255, 248, 235, 0.94);
+	border-radius: 65px;
+	padding: 45px 35px 55px 35px;
+	box-shadow: 0 30px 55px rgba(0, 0, 0, 0.25);
+	text-align: center;
+	backdrop-filter: blur(1px);
+	border: 2px solid #ffefcf;
+	position: relative;
+	z-index: 1;
+}
+
+.greeting {
+	font-size: 3.8rem;
+	font-weight: 800;
+	background: linear-gradient(135deg, #c53a1f, #e66a2c, #f9b43a, #ffdd77);
+	background-clip: text;
+	-webkit-background-clip: text;
+	color: transparent;
+	margin-bottom: 30px;
+	letter-spacing: 2px;
+	animation: pulseGlow 1.5s ease-in-out infinite;
+	display: inline-block;
+	cursor: pointer;
+}
+
+@keyframes pulseGlow {
+	0% { text-shadow: 0 0 0px rgba(255, 100, 50, 0); transform: scale(1); }
+	50% { text-shadow: 0 0 20px rgba(255, 100, 50, 0.8), 0 0 40px rgba(255, 200, 100, 0.5); transform: scale(1.02); }
+	100% { text-shadow: 0 0 0px rgba(255, 100, 50, 0); transform: scale(1); }
+}
+
+.cake-line {
+	font-size: 2.6rem;
+	letter-spacing: 10px;
+	background: #fff4e6;
+	display: inline-block;
+	padding: 10px 35px;
+	border-radius: 100px;
+	margin-bottom: 45px;
+	box-shadow: inset 0 -1px 0 #ffe0b5, 0 8px 20px rgba(0, 0, 0, 0.1);
+	animation: gentleBob 3s ease-in-out infinite;
+	cursor: pointer;
+}
+
+@keyframes gentleBob {
+	0%, 100% { transform: translateY(0px) rotate(0deg); }
+	50% { transform: translateY(-8px) rotate(1deg); }
+}
+
+.stacked-text { margin-bottom: 35px; }
+.line-1 { font-size: 3rem; font-weight: 700; color: #c53a1f; margin: 10px 0; }
+.line-2 { font-size: 2.7rem; font-weight: 650; color: #d45a2a; margin: 10px 0; }
+.line-3 { font-size: 2.4rem; font-weight: 600; color: #e07030; margin: 10px 0; }
+.line-4 { font-size: 1.5rem; font-weight: 550; color: #e88840; margin: 10px 0; }
+.line-5 { font-size: 1.0rem; font-weight: 500; color: #FF6B6B; margin: 10px 0; }
+.stacked-text div { display: block; text-align: center; transition: transform 0.2s ease; }
+.stacked-text div:hover { transform: scale(1.05); color: #ff6b35; }
+
+.parallel-gallery {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 25px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	white-space: nowrap;
+	padding: 20px 10px;
+	margin: 30px 0 30px 0;
+	scrollbar-width: thin;
+}
+
+.parallel-gallery::-webkit-scrollbar { height: 10px; }
+.parallel-gallery::-webkit-scrollbar-track { background: #ffe0b5; border-radius: 10px; }
+.parallel-gallery::-webkit-scrollbar-thumb { background: #e67e22; border-radius: 10px; }
+
+.sticker-card {
+	background: #fffef7;
+	border-radius: 32px;
+	padding: 18px 14px;
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+	transition: all 0.25s ease-in-out;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid #ffe0b5;
+	flex-shrink: 0;
+}
+.sticker-card:hover { transform: translateY(-8px); background: #ffffff; }
+.sticker { display: block; object-fit: contain; width: 200px; height: auto; border-radius: 20px; }
+
+.scroll-hint {
+	margin-top: 15px;
+	font-size: 0.8rem;
+	color: #e67e22;
+	background: #fff0e0;
+	display: inline-block;
+	padding: 5px 20px;
+	border-radius: 50px;
+}
+
+@media (max-width: 700px) {
+	.sticker { width: 160px; }
+	.greeting { font-size: 2.5rem; }
+	.line-1 { font-size: 2.2rem; }
+	.line-2 { font-size: 2.0rem; }
+	.line-3 { font-size: 1.8rem; }
+	.line-4 { font-size: 1.2rem; }
+	.line-5 { font-size: 1.0rem; }
+	.cake-line { font-size: 1.8rem; letter-spacing: 5px; }
+	.photo-frame { padding: 16px 20px 24px; }
+	.photo-caption { font-size: 1.2rem; }
+}
+
+/* camera button special */
+.unclickable-btn {
+	background: linear-gradient(135deg, #4a90e2, #2c3e50);
+	color: white;
+	border: none;
+	padding: 15px 40px;
+	font-size: 1.5rem;
+	border-radius: 50px;
+	cursor: pointer;
+	font-weight: bold;
+	margin: 20px auto;
+	transition: 0.2s;
+	box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+	display: block;
+}
+.unclickable-btn:hover { transform: scale(1.02); background: linear-gradient(135deg, #5fa0f0, #3e5a75); }
+
+/* fallback text for missing image */
+.img-error-fallback {
+	color: #e67e22;
+	font-size: 1rem;
+	background: #fff0e0;
+	padding: 10px;
+	border-radius: 20px;
+	margin-top: 10px;
+}
+</style>
+</head>
+<body>
+
+<div class="birthday-wrapper">
+<div class="greeting">🎂 Happy Birthday! 🎈</div>
+
+<div class="stacked-text">
+<div class="line-1">To "My madam ji"</div>
+<div class="line-2">"Mahila mittar"</div>
+<div class="line-3">"Foureye"</div>
+<div class="line-4">"Doraemon"</div>
+<div class="line-5">"Pasandida aurat"</div>
+</div>
+
+<div class="cake-line">🎂 HAPPY 100th BIRTHDAY GRANNY🎂</div>
+
+<div class="parallel-gallery">
+<!-- Position 1 -->
+<div class="sticker-card"><img src="IMG_20260608_203854-removebg-preview.png" class="sticker" alt="sticker 1" onerror="this.src='https://placehold.co/200x200/FFDAB9/FF8C42?text=❤️+Love+❤️';"></div>
+<!-- Position 2 -->
+<div class="sticker-card"><img src="IMG_20260608_204434-removebg-preview.png" class="sticker" alt="sticker 2" onerror="this.src='https://placehold.co/200x200/FADADD/FFB347?text=🎂+100+🎂';"></div>
+<!-- Position 3 -->
+<div class="sticker-card"><img src="IMG_20260608_204452-removebg-preview.png" class="sticker" alt="sticker 3" onerror="this.src='https://placehold.co/200x200/FFE4C4/FFA07A?text=🌟+Granny+🌟';"></div>
+<!-- Position 4 - NEW IMAGE ADDED (4th number) -->
+<div class="sticker-card"><img src="IMG_20260615_164112-removebg-preview.png" class="sticker" alt="sticker 4" onerror="this.src='https://placehold.co/200x200/FFDAB9/FF9966?text=🎈+Birthday+🎈';"></div>
+<!-- Position 5 - NEW IMAGE ADDED (5th number) -->
+<div class="sticker-card"><img src="IMG_20260615_164723-removebg-preview.png" class="sticker" alt="sticker 5" onerror="this.src='https://placehold.co/200x200/FED7B0/FF8855?text=📸+Celebration+📸';"></div>
+<!-- Position 6 -->
+<div class="sticker-card"><img src="IMG_20260608_204410-removebg-preview.png" class="sticker" alt="sticker 6" onerror="this.src='https://placehold.co/200x200/FFDAB9/FF9966?text=🎈+Party+🎈';"></div>
+<!-- Position 7 -->
+<div class="sticker-card"><img src="IMG_20260608_204510-removebg-preview.png" class="sticker" alt="sticker 7" onerror="this.src='https://placehold.co/200x200/FED7B0/FF8855?text=📸+Smile+📸';"></div>
+<!-- Position 8 -->
+<div class="sticker-card"><img src="IMG_20260530_213048-removebg-preview.png" class="sticker" alt="sticker 8" onerror="this.src='https://placehold.co/200x200/FFC8A2/FF6B4A?text=✨+Love+✨';"></div>
+</div>
+
+<button class="unclickable-btn" id="cameraBtn">📸 Take a Birthday Photo 📸</button>
+
+<div class="scroll-hint">🎈✨ Scroll horizontally ➡️ to see all images side by side! ✨🎈</div>
+</div>
+
+<!-- PHOTO MODAL: SHOWS "images.png" WHEN CLICKED -->
+<div id="photoModal" class="photo-modal">
+<div class="photo-frame">
+<!-- THIS IMAGE IS "images.png" - the exact file you want to show -->
+<img id="modalPhotoImg" src="images.png" alt="Birthday memory photo" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 500 450%27%3E%3Crect width=%27500%27 height=%27450%27 fill=%27%23FFFAF0%27/%3E%3Crect x=%2750%27 y=%27220%27 width=%27400%27 height=%27180%27 fill=%27%23FFD1B3%27 rx=%2730%27/%3E%3Ctext x=%27130%27 y=%27130%27 font-size=%2756%27 fill=%27%23E6672E%27 font-weight=%27bold%27%3E📸 HAPPY BIRTHDAY! 📸%3C/text%3E%3Ccircle cx=%27250%27 cy=%27280%27 r=%2765%27 fill=%27%23FFB347%27/%3E%3Ctext x=%27210%27 y=%27305%27 font-size=%2752%27 fill=%27white%27 font-weight=%27bold%27%3E100%3C/text%3E%3Ctext x=%27100%27 y=%27370%27 font-size=%2732%27 fill=%27%23993D1C%27%3EGRANNY%27S SPECIAL DAY%3C/text%3E%3Ctext x=%27180%27 y=%27415%27 font-size=%2726%27 fill=%27%23B85C1A%27%3E🎂🎈 LOVE YOU 🎈🎂%3C/text%3E%3C/svg%3E';">
+<!-- THESE MESSAGES REMAIN EXACTLY AS YOU HAD THEM - NOT CHANGED -->
+<div class="photo-caption">✨ MEMORY CAPTURED ✨</div>
+<div class="photo-sub">🎀 "You look beautiful today!" 🎀</div>
+<div class="close-hint">👇 Tap anywhere to close 👆</div>
+</div>
+</div>
+
+<script>
+// --------------------------------------------------------------
+// WHEN CLICKING "Take a Birthday Photo", we show "images.png"
+// The messages under the image remain unchanged.
+// The modal displays the actual images.png file from your directory.
+// If the file is missing, a fallback birthday image appears automatically.
+// --------------------------------------------------------------
+
+const photoModal = document.getElementById('photoModal');
+const cameraButton = document.getElementById('cameraBtn');
+const modalImage = document.getElementById('modalPhotoImg');
+
+// Function to show the photo modal with images.png
+function showPhotoWithImagesPNG() {
+	// Make sure the image source is set to "images.png"
+	// This ensures every time you click, it loads images.png
+	modalImage.src = "images.png";
+	
+	// Add a timestamp to prevent caching issues? Not needed, but ensures fresh load.
+	// Simple approach: just set src again. The browser will reload if needed.
+	
+	// Display the modal with beautiful animation
+	photoModal.style.display = 'flex';
+	
+	// Add playful camera flash effect on the body for that "photo taken" feel
+	const originalTransition = document.body.style.transition;
+	document.body.style.transition = 'background 0.08s';
+	document.body.style.backgroundColor = '#fff9f0';
+	setTimeout(() => {
+		document.body.style.backgroundColor = '';
+	document.body.style.transition = originalTransition;
+	}, 120);
+	
+	// Create a little "📸" floating effect near the button for extra fun (doesn't affect the image or messages)
+	const fakeFlash = document.createElement('div');
+	fakeFlash.innerText = '📸✨';
+	fakeFlash.style.position = 'fixed';
+	fakeFlash.style.fontSize = '2.5rem';
+	fakeFlash.style.left = '50%';
+	fakeFlash.style.bottom = '30px';
+	fakeFlash.style.transform = 'translateX(-50%)';
+	fakeFlash.style.pointerEvents = 'none';
+	fakeFlash.style.zIndex = '9999';
+	fakeFlash.style.transition = 'transform 0.4s ease-out, opacity 0.5s';
+	fakeFlash.style.opacity = '1';
+	document.body.appendChild(fakeFlash);
+	setTimeout(() => {
+		fakeFlash.style.transform = 'translateX(-50%) translateY(-60px) scale(1.5)';
+	fakeFlash.style.opacity = '0';
+	setTimeout(() => fakeFlash.remove(), 500);
+	}, 20);
+}
+
+// Attach click event to camera button
+if (cameraButton) {
+	cameraButton.addEventListener('click', (e) => {
+		e.preventDefault();
+		showPhotoWithImagesPNG();
+	});
+}
+
+// Close modal when user clicks anywhere on modal overlay
+if (photoModal) {
+	photoModal.addEventListener('click', function(e) {
+		photoModal.style.display = 'none';
+	});
+}
+
+// Ensure modal is initially hidden
+photoModal.style.display = 'none';
+
+// Optional: If images.png fails to load, the onerror handler already provides a fallback.
+// But we also add a console log to let you know.
+if (modalImage) {
+	modalImage.onerror = function() {
+		console.log("Note: images.png not found in the directory. Using fallback birthday image instead. Please make sure 'images.png' is in the same folder as this HTML file.");
+	};
+}
+
+// Floating balloons animation (kept from original for fun celebration)
+const balloons = ['🎈', '🎈', '🎉', '🎊', '🎂', '🕯️', '🌸', '🎁'];
+for (let i = 0; i < 24; i++) {
+	setTimeout(() => {
+		const balloon = document.createElement('div');
+		balloon.className = 'floating-balloon';
+	balloon.textContent = balloons[Math.floor(Math.random() * balloons.length)];
+	balloon.style.left = Math.random() * 100 + '%';
+	balloon.style.animationDuration = 5 + Math.random() * 7 + 's';
+	balloon.style.fontSize = 28 + Math.random() * 40 + 'px';
+	document.body.appendChild(balloon);
+	setTimeout(() => {
+		if (balloon && balloon.remove) balloon.remove();
+	}, 11000);
+	}, i * 450);
+}
+
+// Add a little easter egg: clicking on cake-line also shows the same images.png (just for fun)
+const cakeDiv = document.querySelector('.cake-line');
+if(cakeDiv) {
+	cakeDiv.addEventListener('click', () => {
+		// Show the same images.png with the same messages (no changes to captions)
+		modalImage.src = "images.png";
+		photoModal.style.display = 'flex';
+	});
+}
+
+// Optional: Add hover effect enhancements to button
+const btn = document.getElementById('cameraBtn');
+if(btn) {
+	btn.addEventListener('mouseenter', () => {
+		btn.style.transform = 'scale(1.02)';
+	});
+	btn.addEventListener('mouseleave', () => {
+		btn.style.transform = 'scale(1)';
+	});
+}
+
+// Log to console confirming the new images are added at positions 4 and 5
+console.log("🎂 HAPPY BIRTHDAY! 🎂");
+console.log("📸 Camera button shows 'images.png' when clicked. The loving messages remain exactly the same!");
+console.log("🖼️ NEW: Two new images added to the slideshow at positions 4 and 5:");
+console.log("   4️⃣ IMG_20260615_164112-removebg-preview.png");
+console.log("   5️⃣ IMG_20260615_164723-removebg-preview.png");
+console.log("💡 Tip: Make sure all image files are in the same folder as this HTML file.");
+</script>
+
+</body>
+
+
+<!-- Redirect Link to Canva Website -->
+<!-- REPLACE THE HREF WITH YOUR ACTUAL CANVA WEB LINK -->
+<a href="https://fox-kff98c.my.canva.site/" class="quiz-btn">Ready for the Quiz? Start Now! ➡️</a>
+</div>
+
+
+</body>
+</html>
